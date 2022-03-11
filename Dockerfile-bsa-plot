@@ -1,0 +1,20 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM dockerhub.qingcloud.com/zqzoffice/bsa:v0.1
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /work
+
+ADD ./sh/gene-analyse .
+ADD ./bsa/BSA_permutation_parallel.R .
+ADD ./bsa/install.R .
+RUN Rscript install.R
+ENV PATH /work:/usr/local/bin:$PATH
+# Define default command.
+CMD ["/work/gene-analyse","bsap"]

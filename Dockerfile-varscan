@@ -1,0 +1,19 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM dockerhub.qingcloud.com/zqzoffice/gatk:v0.1
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /work
+ADD ./sh/VarScan.v2.4.2.jar ./
+ADD ./sh/varscan.sh ./
+ADD ./sh/graph.r ./
+ADD ./sh/pipe.py ./
+#ENV PATH /usr/local/bin:$PATH
+# Define default command.
+CMD ["./varscan.sh"]

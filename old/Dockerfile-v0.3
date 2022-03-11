@@ -1,0 +1,22 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM dockerhub.qingcloud.com/zqzoffice/r-base:v0.2
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /install
+
+ADD ./sh/subread-1.6.0-Linux-x86_64.tar.gz /usr/local/featurecounts
+ADD ./sh/install.R .
+RUN mkdir -p /data && apt update && apt-get install -y libcurl4-openssl-dev \
+&& apt install -y libssl-dev && apt-get install -y libxml2-dev \
+&& Rscript install.R && ln -s ~/miniconda3/lib/libcrypto.so.1.1 ~/miniconda3/lib/libcrypto.so.1.0.0
+ENV FEATURE /usr/local/featurecounts/subread-1.6.0-Linux-x86_64
+ENV PATH ${FEATURE}/bin:/root/miniconda3/bin:/usr/local/bin:$PATH
+# Define default command.
+CMD ["echo","R base"]

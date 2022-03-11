@@ -1,0 +1,20 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM dockerhub.qingcloud.com/zqzoffice/r-base:v0.4
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /work
+ADD ./sh/gene-analyse  .
+ADD ./sh/bra_kegg_annotation.txt . 
+ADD ./transcription_brapa/ .
+#ADD ../sh/gene-analyse .
+RUN Rscript install.R && mv bra_kegg_annotation.txt kegg_annotation.txt
+ENV PATH /usr/local/bin:$PATH
+# Define default command.
+CMD ["./gene-analyse","diff"]

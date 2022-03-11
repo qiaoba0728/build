@@ -1,0 +1,17 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM dockerhub.qingcloud.com/zqzoffice/rmats:base
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /rmats
+ADD ./sh/make.py /rmats/
+ADD ./sh/rmats.sh .
+ENV PATH /rmats:$PATH
+# Define default command.
+CMD ["python","make.py"]

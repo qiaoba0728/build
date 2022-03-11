@@ -1,0 +1,16 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM dockerhub.qingcloud.com/zqzoffice/r-base:v0.4
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /work
+RUN apt update -y && apt-get install -y bioperl bioperl-run
+
+# Define default command.
+CMD ["echo","hello world"]

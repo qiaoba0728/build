@@ -1,0 +1,24 @@
+FROM docker.io/conda/miniconda3
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+#
+# # Define working directory.
+# WORKDIR /work
+#
+
+# ADD ./soft/subread-1.6.0-Linux-x86_64.tar.gz /usr/local/featurecounts
+# #ADD ./soft/jdk-15.0.1_linux-x64_bin.tar.gz  /usr/local/java
+# #ADD ./soft/fastqc.tar.gz /usr/local/fastqc
+# #ADD ./sh/gene-analyse /work
+# #RUN tar zxcf /mnt/tar zxcf subread-1.6.0-Linux-x86_64.tar.gz
+ADD ./sh/gatk-4.2.5.0 /home/gatk-4.2.5.0
+RUN apt update -y  &&  apt install -y openjdk-8-jdk &&  conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/cloud/bioconda/ \
+&& conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/cloud/conda-forge/ \
+&& conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/free/ \
+&& conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/main/ \
+&& conda config --set show_channel_urls yes  && conda install -y fastp  samtools=1.12 htslib bwa
+#
+ENV PATH /home/gatk-4.2.5.0:/root/miniconda3/bin:/usr/local/bin:$PATH
+# # Define default command.
+CMD ["echo","build"]

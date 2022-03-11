@@ -1,0 +1,35 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM dockerhub.qingcloud.com/iot_demo/r-base:v0.4
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /bsa
+
+ADD ./sh/gene-analyse .
+ADD ./bsa/BSA_permutation.R .
+ADD ./bsa/BSA_permutation_parallel.R .
+ADD ./bsa/cufflink.pl .
+ADD ./bsa/delta.pl .
+ADD ./bsa/delta_distribution.pl .
+ADD ./bsa/DNA_BSA_pipeline.pl .
+ADD ./bsa/Enzyme_ParaFly.pl .
+ADD ./bsa/snpMapper-1.07_forDNABSA.pl .
+ADD ./bsa/snp_to_vcf.pl .
+ADD ./bsa/restriction_Site_for_targetscf.pl .
+ADD ./bsa/gfold.pl .
+ADD ./bsa/snpMapper-1.07.pl .
+ADD ./bsa/snpMapper-1.07_forDNABSA.pl .
+ADD ./bsa/snpMapper-1.08.pl .
+ADD ./bsa/snpMapper_sub.pl .
+ADD ./bsa/Stringtie.pl .
+ADD ./sh/bsa.json ./
+
+ENV PATH /bsa:/usr/local/bin:$PATH
+# Define default command.
+CMD ["/bsa/gene-analyse","bsa"]

@@ -1,0 +1,12 @@
+FROM wwliao/cnvnator:latest
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /work
+ADD ./sh/cnv.sh .
+USER root
+#ENV PATH /usr/local/bin:$PATH
+# Define default command.
+CMD ["/work/cnv.sh"]

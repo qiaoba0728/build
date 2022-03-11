@@ -1,0 +1,34 @@
+# Pull base image.
+FROM dockerhub.qingcloud.com/zqzoffice/bsa:v0.1
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /bsa
+
+ADD ./sh/gene-analyse .
+ADD ./sh/bsa.json ./
+
+ADD ./bsa/BSA_permutation.R .
+ADD ./bsa/BSA_permutation_parallel.R .
+ADD ./bsa/cufflink.pl .
+ADD ./bsa/delta.pl .
+ADD ./bsa/delta_distribution.pl .
+ADD ./bsa/DNA_BSA_pipeline.pl .
+ADD ./bsa/Enzyme_ParaFly.pl .
+ADD ./bsa/snp_to_vcf.pl .
+ADD ./bsa/restriction_Site_for_targetscf.pl .
+ADD ./bsa/gfold.pl .
+ADD ./bsa/snpMapper-1.07.pl .
+ADD ./bsa/snpMapper-1.07_forDNABSA.pl .
+ADD ./bsa/snpMapper-1.08.pl .
+ADD ./bsa/snpMapper_sub.pl .
+ADD ./bsa/Stringtie.pl .
+ADD ./bsa/RNA_BSA_pipeline.pl .
+ADD ./bsa/install.R .
+RUN Rscript install.R
+ENV PATH /bsa:/root/miniconda3/bin:/usr/local/bin:$PATH
+# Define default command.
+CMD ["/bsa/gene-analyse","bsa","rna"]
+

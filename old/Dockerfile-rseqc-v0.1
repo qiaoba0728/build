@@ -1,0 +1,18 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM docker.io/lkalbert001/rseqc:latest
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /work
+ADD ./sh/gene-analyse ./
+ADD ./sh/build.json ./
+ADD ./sh/gtf2bed12.perl ./
+ENV PATH /usr/local/bin:$PATH
+# Define default command.
+CMD ["/work/gene-analyse","test"]

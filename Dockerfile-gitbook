@@ -1,0 +1,13 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM fellah/gitbook:latest
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+RUN apt update -y && apt install -y calibre
+# Define working directory.
+# Define default command.
+CMD ["echo","hello world"]

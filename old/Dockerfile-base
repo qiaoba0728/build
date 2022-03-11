@@ -1,0 +1,22 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM docker.io/r-base
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /install
+
+
+ADD Miniconda3-py37_4.8.3-Linux-x86_64.sh .
+
+#RUN apt-get update -y && apt-get install -y gcc g++  && ls -l && cd R-4.0.3 && ./configure --prefix=/opt/R-3.x.x --enable-R-shlib \
+# && make && make install
+
+
+# Define default command.
+CMD ["echo","R base"]

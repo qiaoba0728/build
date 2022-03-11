@@ -1,0 +1,21 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM dockerhub.qingcloud.com/zqzoffice/gatk:v0.1
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /work
+ADD ./sh/gene-analyse ./
+ADD ./sh/build.json ./
+ADD ./sh/gtf2bed12.perl ./
+ADD ./sh/bamdst ./
+ADD ./sh/annovar ./annovar/
+ADD ./sh/gtfToGenePred ./
+ENV PATH /work/annovar:$PATH
+# Define default command.
+CMD ["/work/gene-analyse","gatk","result"]

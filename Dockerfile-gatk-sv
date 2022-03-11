@@ -1,0 +1,13 @@
+FROM molecular/breakdancer:latest
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /work
+ADD ./sh/build_sv.sh .
+USER root
+
+#ENV PATH /usr/local/bin:$PATH
+# Define default command.
+CMD ["/work/build_sv.sh"]

@@ -1,0 +1,19 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM biodckrdev/snpeff:latest
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+# Define working directory.
+WORKDIR /work
+ADD ./sh/snpeff.sh ./
+ADD ./sh/snpeff_bsa.py ./
+USER root
+RUN  apt-get update -y  && apt-get install -y python-dev python3-dev libxml2-dev libxslt1-dev zlib1g-dev && pip install lxml -i http://mirrors.aliyun.com/pypi/simple/
+#ENV PATH /usr/local/bin:$PATH
+# Define default command.
+CMD ["./snpeff.sh"]

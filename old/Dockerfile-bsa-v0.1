@@ -1,0 +1,14 @@
+#
+# Qingcloud Dockerfile
+#
+
+# Pull base image.
+FROM dockerhub.qingcloud.com/zqzoffice/r-base:v0.3
+
+# Define mountable directories.
+MAINTAINER hexing "hexing@yunify.com"
+
+RUN conda update -n base -c defaults conda && conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main && conda config --set show_channel_urls yes && conda install -y ParaFly gfold bowtie2 stringtie fastqc fastp hisat2 samtools
+
+# Define default command.
+CMD ["echo","build"]
