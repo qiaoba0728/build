@@ -3,8 +3,8 @@
 
 use strict;
 use Getopt::Std;
-our($opt_f,$opt_b,$opt_a,$opt_1,$opt_2,$opt_r,$opt_s,$opt_3,$opt_4,$opt_5,$opt_6,,$opt_7);
-getopts('f:b:a:1:2:r:s:3:4:5:6:7:');
+our($opt_f,$opt_b,$opt_a,$opt_1,$opt_2,$opt_r,$opt_s,$opt_3,$opt_4,$opt_5,$opt_6,,$opt_7,$opt_t);
+getopts('f:b:a:1:2:r:s:3:4:5:6:7:t:');
 
 my $reference    = $opt_f;
 my $bowtie_index = $opt_b;
@@ -18,6 +18,7 @@ my $fq1_2	 = $opt_4;
 my $fq2_1	 = $opt_5;
 my $fq2_2	 = $opt_6;
 my $dir	         = (defined $opt_7)?$opt_7:"/data/output/bsa_result/";
+my $tag       = (defined $opt_t)?$opt_t:"bsa_";
 
 my $Usage = "\n$0 -f <Reference genome> -b <Index> -3 -4 -5 -6 <fastq files>
 Input (required):
@@ -42,6 +43,13 @@ die $Usage unless ($opt_f && $opt_b && $opt_3 && $opt_4 && $opt_5 && $opt_6 && $
 my $time1 = time();
 my $vcf = "$lable1\_$lable2";
 my $fai  = "$reference.fai";
+
+my $loc = rindex($fq1_1,"/");
+my $tag1 = substr($fq1_1,$loc+1,1);
+
+my $loc = rindex($fq2_1,"/");
+my $tag2 = substr($fq2_1,$loc+1,1);
+print "*************************** tag1:${tag1},tag2:${tag2} ****************************";
 
 # ----------- index the genome using samtools ---------- #
 unless (-e $fai){
@@ -68,8 +76,8 @@ close CHRNUM;
 
 
 # -------- running snpMapper --------------#
-print "snpMapper-1.07_forDNABSA.pl -f $reference -b $bowtie_index -3 $fq1_1 -4 $fq1_2 -5 $fq2_1 -6 $fq2_2 -a $threads -d 0 -o /data/output/smsnpMapper_out 2> /data/log/snpMapper.log\n";
-!system "snpMapper-1.07_forDNABSA.pl -f $reference -b $bowtie_index -3 $fq1_1 -4 $fq1_2 -5 $fq2_1 -6 $fq2_2 -a $threads -d 0 -o /data/output/smsnpMapper_out 2>/data/log/snpMapper.log" or die "Something wrong with snpMapper-107_forDNABSA.pl:$!";
+print "snpMapper-1.07_forDNABSA.pl -s $tag -f $reference -b $bowtie_index -3 $fq1_1 -4 $fq1_2 -5 $fq2_1 -6 $fq2_2 -a $threads -d 0 -o /data/output/smsnpMapper_out 2> /data/log/snpMapper.log\n";
+!system "snpMapper-1.07_forDNABSA.pl -s $tag -f $reference -b $bowtie_index -3 $fq1_1 -4 $fq1_2 -5 $fq2_1 -6 $fq2_2 -a $threads -d 0 -o /data/output/smsnpMapper_out 2>/data/log/snpMapper.log" or die "Something wrong with snpMapper-107_forDNABSA.pl:$!";
 print "delta.pl /data/output/smsnpMapper_out/smcandidatesnps_D15d0.txt 0.4 /data/output/smsnpMapper_out/smcandidatesnps_D15d0.4.txt\n";
 !system "delta.pl /data/output/smsnpMapper_out/smcandidatesnps_D15d0.txt 0.4 /data/output/smsnpMapper_out/smcandidatesnps_D15d0.4.txt" or die "Something wrong wich delta.pl!";
 print "snp_to_vcf.pl -i /data/output/smsnpMapper_out/smcandidatesnps_D15d0.txt -o /data/output/$vcf.vcf\n";

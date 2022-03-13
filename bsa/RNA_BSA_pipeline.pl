@@ -3,8 +3,8 @@
 
 use strict;
 use Getopt::Std;
-our($opt_f,$opt_b,$opt_a,$opt_1,$opt_2,$opt_r,$opt_s,$opt_3,$opt_4,$opt_5,$opt_6,$opt_g,$opt_d,$opt_7);
-getopts('f:b:a:1:2:r:s:3:4:5:6:g:d:7:');
+our($opt_f,$opt_b,$opt_a,$opt_1,$opt_2,$opt_r,$opt_s,$opt_3,$opt_4,$opt_5,$opt_6,$opt_g,$opt_d,$opt_7,$opt_t);
+getopts('f:b:a:1:2:r:s:3:4:5:6:g:d:7:t:');
 
 my $reference    = $opt_f;
 my $bowtie_index = $opt_b;
@@ -20,6 +20,7 @@ my $fq2_2        = $opt_6;
 my $gff_file     = (defined $opt_g)?$opt_g:0;
 my $delta_cut    = (defined $opt_d)?$opt_d:0.4;
 my $dir          = (defined $opt_7)?$opt_7:"/data/output/bsa_result";
+my $tag       = (defined $opt_t)?$opt_t:"bsa_";
 
 my $Usage = "\n$0 -f <Reference genome> -b <Index> -3 <pool1 left reads> -4 <pool1 right reads> -5 <pool2 left reads> -6 <pool2 right reads>
 Input (required):
@@ -47,6 +48,11 @@ my $time1 = time();
 my $vcf = "$lable1\_$lable2";
 my $fai  = "$reference.fai";
 
+my $loc = rindex($fq1_1,"/");
+my $tag1 = substr($fq1_1,$loc+1,1);
+
+my $loc = rindex($fq2_1,"/");
+my $tag2 = substr($fq2_1,$loc+1,1);
 # ----------- index the genome using samtools ---------- #
 unless (-e $fai){
         print "indexing the genome with samtools</br>";
@@ -71,9 +77,9 @@ close CHRNUM;
 ##
 # -------- running snpMapper --------------#
 if ($chrseq_numbers < 100) {
-        !system "snpMapper-1.08.pl -f $reference -b $bowtie_index -3 $fq1_1 -4 $fq1_2 -5 $fq2_1 -6 $fq2_2 -a $threads -d 0 -o /data/output/smsnpMapper_out > /data/log/snpMapper.out" or die "Something wrong with snpMapper!";
+        !system "snpMapper-1.08.pl -s $tag -f $reference -b $bowtie_index -3 $fq1_1 -4 $fq1_2 -5 $fq2_1 -6 $fq2_2 -a $threads -d 0 -o /data/output/smsnpMapper_out > /data/log/snpMapper.out" or die "Something wrong with snpMapper!";
 }else{
-        !system "snpMapper-1.07.pl -f $reference -b $bowtie_index -3 $fq1_1 -4 $fq1_2 -5 $fq2_1 -6 $fq2_2 -a $threads -d 0 -o /data/output/smsnpMapper_out > /data/log/snpMapper.out" or die "Something wrong with snpMapper!";
+        !system "snpMapper-1.07.pl -s $tag -f $reference -b $bowtie_index -3 $fq1_1 -4 $fq1_2 -5 $fq2_1 -6 $fq2_2 -a $threads -d 0 -o /data/output/smsnpMapper_out > /data/log/snpMapper.out" or die "Something wrong with snpMapper!";
 }
 if ($delta_cut == 0.4) {
         !system "delta.pl /data/output/smsnpMapper_out/smcandidatesnps_D10d0.txt 0.4 /data/output/smsnpMapper_out/smcandidatesnps_D10d0.4.txt" or die "Something wrong wich delta.pl!";
@@ -97,8 +103,8 @@ if ($gff_file == 0) {
         !system "Stringtie.pl $threads $lable1 $lable2 $reference" or warn "ERROR with Stringtie:$!";
         $gff_file = "/data/output/Stringtie_out/merge.gtf";
 }
-my $bam1 = "/data/output/smsnpMapper_out/smhisat2_out1/acc.sorted.bam";
-my $bam2 = "/data/output/smsnpMapper_out/smhisat2_out2/acc.sorted.bam";
+my $bam1 = "/data/output/smsnpMapper_out/${tag}hisat2_${tag1}/acc.sorted.bam";
+my $bam2 = "/data/output/smsnpMapper_out/${tag}hisat2_${tag2}/acc.sorted.bam";
 !system "gfold.pl $bam1 $bam2 $gff_file" or warn "ERROR with GFOLD, please check GTF format:$!";
 
 # move some results to Final_Results

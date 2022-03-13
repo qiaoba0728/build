@@ -66,24 +66,29 @@ my $fq1_left		= $opt_3;
 my $fq1_right		= $opt_4;
 my $fq2_left		= $opt_5;
 my $fq2_right		= $opt_6;
-my $user_defined_depth  = (defined $opt_D)?$opt_D:10;  # read coverage for a given position, default=5;
-my $delta            = (defined $opt_d)?$opt_d:0; # delta of SNP-index of locus between mutant and wild type
+#my $user_defined_depth  = (defined $opt_D)?$opt_D:10;  # read coverage for a given position, default=5;
+#my $delta            = (defined $opt_d)?$opt_d:0; # delta of SNP-index of locus between mutant and wild type
 my $nopoly           = (defined $opt_n)?$opt_n:0.95;
 my $cpu              = (defined $opt_a)?$opt_a:6;
 my $mapq             = (defined $opt_q)?$opt_q:55;
 my $baseQ            = (defined $opt_Q)?$opt_Q:30;
 my $prefix           = (defined $opt_s)?$opt_s:'sm';
 my $outdir           = (defined $opt_o)?$opt_o:"${prefix}snpMapper_out"; # outfile
-my $Putative_SNP     = "$outdir/${prefix}candidatesnps_D${user_defined_depth}d$delta.txt";
+my $Putative_SNP     = "$outdir/smcandidatesnps_D10d0.txt";
 my $merge_reads      = (defined $opt_z)?$opt_z:'F';
 
 ###################### snpMapper.pl Main program starts from here ##################################
 
 print "  Checking fastq files ...</br>";
+my $loc = rindex($fq1_left,"/");
+my $tag1 = substr($fq1_left,$loc+1,1);
+
+my $loc = rindex($fq2_left,"/");
+my $tag2 = substr($fq2_left,$loc+1,1);
 
 make_path($outdir,{verbose=>1,mode=>0777}) unless (-e $outdir);
-my $tophat_outdir1 = "$outdir/${prefix}hisat2_out1";
-my $tophat_outdir2 = "$outdir/${prefix}hisat2_out2";
+my $tophat_outdir1 = "$outdir/${prefix}hisat2_${tag1}";
+my $tophat_outdir2 = "$outdir/${prefix}hisat2_${tag2}";
 make_path($tophat_outdir1, {-verbose=>1,mode=>0777}) unless -e $tophat_outdir1 && -d $tophat_outdir1;
 make_path($tophat_outdir2, {-verbose=>1,mode=>0777}) unless -e $tophat_outdir2 && -d $tophat_outdir2;
 
