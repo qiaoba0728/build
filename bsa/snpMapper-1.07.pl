@@ -66,6 +66,8 @@ my $fq2_left		= $opt_5;
 my $fq2_right		= $opt_6;
 #my $user_defined_depth  = (defined $opt_D)?$opt_D:10;  # read coverage for a given position, default=15;
 #my $delta            = (defined $opt_d)?$opt_d:0; # delta of SNP-index of locus between mutant and wild type
+my $user_defined_depth = 10
+my $delta = 0
 my $nopoly           = (defined $opt_n)?$opt_n:0.95;
 my $cpu              = (defined $opt_a)?$opt_a:6;
 my $mapq             = (defined $opt_q)?$opt_q:55;
