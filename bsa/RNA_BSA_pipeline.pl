@@ -98,13 +98,13 @@ if ($chrseq_numbers < 100) {
         !system "Rscript BSA_permutation_parallel.R /data/output/smsnpMapper_out/smcandidatesnps_D10d0.txt $range $step $threads $dir" or die "ERROR with R_BSA_permutation.R:$!";
 }
 
-# expression #
-if ($gff_file == 0) {
-        !system "Stringtie.pl $threads $lable1 $lable2 $reference" or warn "ERROR with Stringtie:$!";
-        $gff_file = "/data/output/Stringtie_out/merge.gtf";
-}
 my $bam1 = "/data/output/smsnpMapper_out/${tag}hisat2_${tag1}/acc.sorted.bam";
 my $bam2 = "/data/output/smsnpMapper_out/${tag}hisat2_${tag2}/acc.sorted.bam";
+# expression #
+if ($gff_file == 0) {
+        !system "Stringtie.pl $threads $lable1 $lable2 $reference $bam1 $bam2" or warn "ERROR with Stringtie:$!";
+        $gff_file = "/data/output/Stringtie_out/merge.gtf";
+}
 !system "gfold.pl $bam1 $bam2 $gff_file" or warn "ERROR with GFOLD, please check GTF format:$!";
 
 # move some results to Final_Results

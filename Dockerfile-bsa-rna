@@ -26,6 +26,8 @@ ADD ./bsa/snpMapper-1.08.pl .
 ADD ./bsa/snpMapper_sub.pl .
 ADD ./bsa/Stringtie.pl .
 ADD ./bsa/RNA_BSA_pipeline.pl .
+ADD ./sh/coverage_extract.sh .
+ADD ./sh/extract.sh .
 ADD ./bsa/install.R .
 RUN Rscript install.R
 ENV PATH /bsa:/root/miniconda3/bin:/usr/local/bin:$PATH

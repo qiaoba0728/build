@@ -8,8 +8,8 @@ do
     filename=${file%.gz}
     echo ${filename}
 	name=`basename ${filename}`
-	python pipe.py Insertions ${name%.indel.vcf}.txt ${filename}
-	Rscript graph.r ${name%.indel.vcf}.txt /data/output/gatk_single_result/${name%.indel.vcf} Insertions
+	python gatk_indel.py ${filename} ${name%.indel.vcf}_indel.report
+	#Rscript graph.r ${name%.indel.vcf}.txt /data/output/gatk_single_result/${name%.indel.vcf} Insertions
 }
 done
 for file in `ls /data/output/gatk_single_result/*.snp.filter.vcf.gz`

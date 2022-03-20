@@ -267,6 +267,7 @@ for (i in 2:(length(chromosome_len)-1)) {
 	abline(v=tmp,col="gray",lty=2,lwd=2)
 }
 dev.off()
+print("plot finished")
 # print("start plot 0.05 pdf\n")
 # filedir <- paste(prefix,"Average_Delta_with_confidence_interval_0.05.pdf",sep = "")
 # pdf(filedir,width=14,height=3.5)
