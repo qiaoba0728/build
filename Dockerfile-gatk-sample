@@ -10,7 +10,7 @@ MAINTAINER hexing "hexing@yunify.com"
 
 # Define working directory.
 WORKDIR /work
-ADD ./sh/gene-analyse .
+ADD ./sh/gene-analyse ./
 ADD ./sh/build.json .
 ADD ./sh/gtf2bed12.perl .
 ADD ./sh/bamdst ./
@@ -19,6 +19,6 @@ ADD ./sh/pipe.py .
 ADD ./sh/gatk_single_snp.py .
 ADD ./sh/gatk_single_indel.py .
 ADD ./sh/re_gatk_plot.sh ./
-RUN apt update -y && apt install -y r-base
+# RUN apt update -y && apt install -y r-base
 # Define default command.
 CMD ["/work/gene-analyse","gatk","sample"]

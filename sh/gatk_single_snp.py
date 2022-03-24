@@ -8,7 +8,8 @@ snps = {}
 # indelstatic = {}
 for line in input:
         split_line = line.rstrip("\r\n").split("\t")
-        if line.startswith("#"):    
+        if line.startswith("#"):
+            continue    
         else:
             # 获取indel的颠倒数据
             if split_line[3] != split_line[4] and len(split_line[3]) == 1 and len(split_line[4]) == 1:

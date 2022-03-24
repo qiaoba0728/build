@@ -9,11 +9,11 @@ insertions = {}
 for line in input:
         split_line = line.rstrip("\r\n").split("\t")
         if line.startswith("#"):
+            continue
         else:
             # 获取插入和缺失长度
             last = split_line[4].split(",")
             key = len(split_line[3]) - len(last[0])
-            print(split_line[3],last[0],key)
             if not insertions.get(key):
                 insertions[key] = 1
             else:
