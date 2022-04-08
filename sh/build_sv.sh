@@ -18,7 +18,7 @@ do
     inv=`cat /data/output/sv_result/${name}.txt | grep INV | wc -l`
     itx=`cat /data/output/sv_result/${name}.txt | grep ITX | wc -l`
     ctx=`cat /data/output/sv_result/${name}.txt | grep CTX | wc -l`
-    echo "${name}|${del}|${ins}|${inv}|${itx}|${ctx}|"
-    echo "${name}|${del}|${ins}|${inv}|${itx}|${ctx}|">>${prefix}/result.txt
+    echo "|${name}|${del}|${ins}|${inv}|${itx}|${ctx}|"
+    echo "|${name}|${del}|${ins}|${inv}|${itx}|${ctx}|">>${prefix}/result.txt
 } 
 done

@@ -38,6 +38,6 @@ cat cnv.info |while read id;do
    sample=`basename $id |sed 's/.cnv.call.txt//'`
    oStat=`cat /data/output/cnv_result/${sample}.cnv.call.txt | wc -l`
    echo "${oStat}"
-   echo "${sample}|${oStat}" >> /data/output/cnv_result/stat.csv
+   echo "|${sample}|${oStat}|" >> /data/output/cnv_result/stat.csv
 done
 

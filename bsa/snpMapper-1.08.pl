@@ -250,7 +250,7 @@ sub command_mkbowtie_index {
 sub command_tophat{
 	my ($bowtie_index,$s_left,$s_right,$outdir,$cpu)  = @_;
 	print "hisat2 -x $bowtie_index -1 $s_left -2 $s_right -p $cpu -S $outdir/acc.sam";
-	!system "hisat2 -x $bowtie_index -1 $s_left -2 $s_right -p $cpu -S $outdir/acc.sam 2>$outdir/compare.out" or die "Error in hisat2";
+	!system "hisat2 -x $bowtie_index -1 $s_left -2 $s_right -p $cpu -S $outdir/acc.sam 2>$outdir/compare.log" or die "Error in hisat2";
 	!system "samtools view -bhS $outdir/acc.sam > $outdir/acc.bam" or die "Error in samtools view (sam to bam)";
 	system "samtools sort -O BAM -@ $cpu -o $outdir/acc.sorted.bam $outdir/acc.bam";
 	system "samtools index $outdir/acc.sorted.bam";
