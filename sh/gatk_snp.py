@@ -6,7 +6,6 @@ HETER = "0/1"
 HOMO = "1/1"
 input = open(sys.argv[1])
 datafile = open(sys.argv[2], 'w')
-datastatic = open(sys.argv[3], 'w')
 item = []
 heter = []
 homo = []

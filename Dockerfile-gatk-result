@@ -12,7 +12,7 @@ MAINTAINER hexing "hexing@yunify.com"
 WORKDIR /work
 ADD ./sh/gene-analyse .
 ADD ./sh/build.json .
-ADD ./soft/gtf2bed12.perl .
+#ADD ./soft/gtf2bed12.perl .
 ADD ./soft/bamdst .
 
 ADD ./soft/gtfToGenePred .
