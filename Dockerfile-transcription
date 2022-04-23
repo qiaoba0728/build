@@ -20,6 +20,9 @@ ADD ./sh/build_down_up.py ./
 ADD ./sh/varscan_plot.sh ./
 ADD ./sh/graph.r ./
 ADD ./sh/pipe.py ./
+ADD ./sh/gatk_indel_plot.R ./
+ADD ./sh/gatk_snp_plot.R ./
+ADD ./sh/re_gatk_plot.sh ./
 ENV PATH /usr/local/bin:$PATH
 # Define default command.
 CMD ["/work/gene-analyse","build"]

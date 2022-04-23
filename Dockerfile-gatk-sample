@@ -18,7 +18,8 @@ ADD ./sh/graph.r .
 ADD ./sh/pipe.py .
 ADD ./sh/gatk_single_snp.py .
 ADD ./sh/gatk_single_indel.py .
-ADD ./sh/re_gatk_plot.sh ./
-# RUN apt update -y && apt install -y r-base
+ADD ./sh/re_gatk_plot.sh .
+ADD ./sh/build_coverage.sh .
+#RUN apt update -y && apt install -y r-base
 # Define default command.
 CMD ["/work/gene-analyse","gatk","sample"]

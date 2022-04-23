@@ -1,26 +1,18 @@
 #!/bin/sh
 
-for file in `ls /data/output/gatk_single_result/*.indel.filter.vcf.gz`
+for file in `ls /data/output/report_result/*_indel.report`
 do
 {
 	echo ${file}
-    gunzip ${file}
-    filename=${file%.gz}
-    echo ${filename}
-	name=`basename ${filename}`
-	python gatk_indel.py ${filename} ${name%.indel.vcf}_indel.report
-	#Rscript graph.r ${name%.indel.vcf}.txt /data/output/gatk_single_result/${name%.indel.vcf} Insertions
+	name=`basename ${file}`
+	Rscript gatk_indel_plot.R ${file} /data/output/report_result/${name%_indel.report}
 }
 done
-for file in `ls /data/output/gatk_single_result/*.snp.filter.vcf.gz`
+for file in `ls /data/output/report_result/*_snp.report`
 do
 {
-        echo $file
-        gunzip ${file}
-        filename=${file%.gz}
-        echo ${filename}
-        name=`basename ${filename}`
-        python pipe.py SNPs ${name%.snp.vcf}.txt ${file}
-        Rscript graph.r ${name%.snp.vcf}.txt /data/output/gatk_single_result/${name%.snp.vcf} SNPs
+    echo ${file}
+	name=`basename ${file}`
+	Rscript gatk_snp_plot.R ${file} /data/output/report_result/${name%_snp.report}
 }
 done

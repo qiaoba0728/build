@@ -12,7 +12,7 @@ MAINTAINER hexing "hexing@yunify.com"
 WORKDIR /work
 ADD ./sh/gene-analyse ./
 ADD ./sh/build.json ./
-
+ADD ./sh/build_coverage.sh .
 #ENV PATH /usr/local/bin:$PATH
 # Define default command.
 CMD ["/work/gene-analyse","gatk"]

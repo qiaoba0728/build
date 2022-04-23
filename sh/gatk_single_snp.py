@@ -22,4 +22,3 @@ for key, value in snps.items():
     datastatic.write(key+"\t"+str(value)+"\r\n")
 datastatic.close()
 input.close()
-datafile.close()
