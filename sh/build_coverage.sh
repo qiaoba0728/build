@@ -22,13 +22,13 @@ do
 read -u3
 {
     echo $file
-    name=`basename ${file}`
-    echo $prefix $name
-    if [ ! -d "/data/output/report_result/${name%.sorted.bam}" ];then
+    name=`basename ${file} |sed 's/.sorted.bam//'`
+    echo $name
+    if [ ! -d "/data/output/report_result/${name}" ];then
         echo "build dir varscan"
-        mkdir -p /data/output/report_result/${name%.sorted.bam}
+        mkdir -p /data/output/report_result/${name}
     fi
-    /work/bamdst -p /data/input/references/gtf.bed12 -o /data/output/report_result/${name%.sorted.bam}
+    /work/bamdst -p /data/input/references/gtf.bed12 -o /data/output/report_result/${name} $file
     echo >&3
 } &
 done

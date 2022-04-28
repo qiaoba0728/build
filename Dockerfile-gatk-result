@@ -12,12 +12,13 @@ MAINTAINER hexing "hexing@yunify.com"
 WORKDIR /work
 ADD ./sh/gene-analyse .
 ADD ./sh/build.json .
-#ADD ./soft/gtf2bed12.perl .
+ADD ./soft/gtf2bed12.perl .
 ADD ./soft/bamdst .
 
 ADD ./soft/gtfToGenePred .
 ADD ./sh/gatk_snp.py .
 ADD ./sh/gatk_indel.py .
+ADD ./sh/build_coverage.sh .
 ENV PATH /work/annovar:$PATH
 # Define default command.
 CMD ["/work/gene-analyse","gatk","result"]
